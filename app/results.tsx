@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Share, Alert, Modal, Linking, Platform } from 'react-native';
 import { router } from 'expo-router';
-import { CheckCircle, Share2, RotateCcw, ArrowLeft, MessageSquare, Mail, X } from 'lucide-react-native';
+import { MaterialIcons, Feather, Entypo } from '@expo/vector-icons';
 import { useSplit } from '@/contexts/SplitContext';
 
 interface Settlement {
@@ -147,7 +147,7 @@ export default function ResultsScreen() {
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <CheckCircle size={48} color="#10b981" />
+          <Feather name="check-circle" size={48} color="#10b981" />
           <Text style={styles.title}>Here's the Split!</Text>
           <Text style={styles.subtitle}>
             Total: ${totalExpenses.toFixed(2)} • {people.length} people
@@ -170,10 +170,10 @@ export default function ResultsScreen() {
 
         <View style={styles.settlementsContainer}>
           <Text style={styles.settlementsTitle}>Who Owes Who</Text>
-          
+
           {settlements.length === 0 ? (
             <View style={styles.evenContainer}>
-              <CheckCircle size={32} color="#10b981" />
+              <Feather name="check-circle" size={32} color="#10b981" />
               <Text style={styles.evenTitle}>Everyone is even!</Text>
               <Text style={styles.evenSubtitle}>
                 No money needs to change hands. Perfect split! 🎉
@@ -205,15 +205,15 @@ export default function ResultsScreen() {
           style={styles.shareButton}
           onPress={() => setShareModalVisible(true)}
         >
-          <Share2 size={20} color="#ffffff" />
+          <Feather name="share-2" size={20} color="#ffffff" />
           <Text style={styles.shareButtonText}>Share Results</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={styles.newSplitButton}
           onPress={handleNewSplit}
         >
-          <RotateCcw size={20} color="#0f766e" />
+          <Feather name="rotate-ccw" size={20} color="#0f766e" />
           <Text style={styles.newSplitButtonText}>New Split</Text>
         </TouchableOpacity>
       </View>
@@ -224,13 +224,13 @@ export default function ResultsScreen() {
         visible={shareModalVisible}
         onRequestClose={() => setShareModalVisible(false)}
       >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
           onPress={() => setShareModalVisible(false)}
         >
-          <TouchableOpacity 
-            style={styles.modalContent} 
+          <TouchableOpacity
+            style={styles.modalContent}
             activeOpacity={1}
             onPress={(e) => e.stopPropagation()}
           >
@@ -240,7 +240,7 @@ export default function ResultsScreen() {
                 onPress={() => setShareModalVisible(false)}
                 style={styles.closeButton}
               >
-                <X size={24} color="#64748b" />
+                <Feather name="x" size={24} color="#64748b" />
               </TouchableOpacity>
             </View>
 
@@ -254,7 +254,7 @@ export default function ResultsScreen() {
                 onPress={handleShareSMS}
               >
                 <View style={styles.shareIconContainer}>
-                  <MessageSquare size={28} color="#0f766e" />
+                  <Feather name="message-square" size={28} color="#0f766e" />
                 </View>
                 <Text style={styles.shareOptionTitle}>SMS</Text>
                 <Text style={styles.shareOptionDescription}>
@@ -267,7 +267,7 @@ export default function ResultsScreen() {
                 onPress={handleShareEmail}
               >
                 <View style={styles.shareIconContainer}>
-                  <Mail size={28} color="#0f766e" />
+                  <Feather name="mail" size={28} color="#0f766e" />
                 </View>
                 <Text style={styles.shareOptionTitle}>Email</Text>
                 <Text style={styles.shareOptionDescription}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { router } from 'expo-router';
-import { Users, Calculator, ArrowRight } from 'lucide-react-native';
+import { MaterialIcons, Feather, Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function HomeScreen() {
@@ -12,9 +12,10 @@ export default function HomeScreen() {
         style={styles.gradient}
       >
         <View style={styles.content}>
+          {/* Hero Section */}
           <View style={styles.heroSection}>
             <View style={styles.iconContainer}>
-              <Calculator size={48} color="#ffffff" />
+              <MaterialIcons name="calculate" size={48} color="#ffffff" /> {/* Calculator */}
             </View>
             <Text style={styles.title}>QuickSplit</Text>
             <Text style={styles.subtitle}>
@@ -22,28 +23,30 @@ export default function HomeScreen() {
             </Text>
           </View>
 
+          {/* Features Section */}
           <View style={styles.featuresContainer}>
             <View style={styles.feature}>
-              <Users size={24} color="#ffffff" />
+              <MaterialIcons name="group" size={24} color="#ffffff" /> {/* Users */}
               <Text style={styles.featureText}>Add friends</Text>
             </View>
             <View style={styles.feature}>
-              <Calculator size={24} color="#ffffff" />
+              <MaterialIcons name="calculate" size={24} color="#ffffff" /> {/* Calculator */}
               <Text style={styles.featureText}>Track expenses</Text>
             </View>
             <View style={styles.feature}>
-              <ArrowRight size={24} color="#ffffff" />
+              <MaterialIcons name="arrow-forward" size={24} color="#ffffff" /> {/* ArrowRight */}
               <Text style={styles.featureText}>See who owes what</Text>
             </View>
           </View>
 
+          {/* Start Button */}
           <TouchableOpacity
             style={styles.startButton}
             onPress={() => router.push('/add-people')}
             activeOpacity={0.9}
           >
             <Text style={styles.startButtonText}>Start a New Split</Text>
-            <ArrowRight size={20} color="#0f766e" />
+            <MaterialIcons name="arrow-forward" size={20} color="#0f766e" /> {/* ArrowRight */}
           </TouchableOpacity>
         </View>
       </LinearGradient>

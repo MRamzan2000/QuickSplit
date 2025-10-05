@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 import { router } from 'expo-router';
-import { Plus, X, Users, ArrowRight } from 'lucide-react-native';
+import { MaterialIcons, Feather, Entypo } from '@expo/vector-icons';
 import { useSplit } from '@/contexts/SplitContext';
 
 export default function AddPeopleScreen() {
@@ -35,7 +35,7 @@ export default function AddPeopleScreen() {
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Users size={32} color="#0f766e" />
+          <MaterialIcons name="group" size={32} color="#0f766e" />
           <Text style={styles.title}>Who's splitting?</Text>
           <Text style={styles.subtitle}>Add 2-10 people to your group</Text>
         </View>
@@ -55,7 +55,7 @@ export default function AddPeopleScreen() {
             onPress={addPerson}
             disabled={!newPersonName.trim()}
           >
-            <Plus size={20} color={newPersonName.trim() ? '#ffffff' : '#94a3b8'} />
+            <Entypo name="plus" size={20} color={newPersonName.trim() ? '#ffffff' : '#94a3b8'} />
           </TouchableOpacity>
         </View>
 
@@ -74,7 +74,7 @@ export default function AddPeopleScreen() {
                 style={styles.removeButton}
                 onPress={() => removePerson(person.id)}
               >
-                <X size={18} color="#ef4444" />
+                <Feather name="x" size={18} color="#ef4444" />
               </TouchableOpacity>
             </View>
           ))}
@@ -98,7 +98,7 @@ export default function AddPeopleScreen() {
           <Text style={[styles.continueButtonText, people.length < 2 && styles.continueButtonTextDisabled]}>
             Continue to Add Expenses
           </Text>
-          <ArrowRight size={20} color={people.length >= 2 ? '#ffffff' : '#94a3b8'} />
+          <MaterialIcons name="arrow-forward" size={20} color={people.length >= 2 ? '#ffffff' : '#94a3b8'} />
         </TouchableOpacity>
       </View>
     </View>

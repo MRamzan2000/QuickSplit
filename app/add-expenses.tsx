@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert, Modal } from 'react-native';
 import { router } from 'expo-router';
-import { Plus, X, Receipt, Check, ArrowRight } from 'lucide-react-native';
+import { MaterialIcons, Feather, Entypo } from '@expo/vector-icons';
 import { useSplit } from '@/contexts/SplitContext';
 
 export default function AddExpensesScreen() {
@@ -18,7 +18,7 @@ export default function AddExpensesScreen() {
       Alert.alert('Missing Information', 'Please enter an expense name.');
       return;
     }
-    
+
     const amount = parseFloat(expenseAmount);
     if (isNaN(amount) || amount <= 0) {
       Alert.alert('Invalid Amount', 'Please enter a valid amount.');
@@ -44,8 +44,7 @@ export default function AddExpensesScreen() {
     };
 
     setExpenses([...expenses, newExpense]);
-    
-    // Reset form
+
     setExpenseName('');
     setExpenseAmount('');
     setSelectedPayer('');
@@ -90,7 +89,7 @@ export default function AddExpensesScreen() {
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Receipt size={32} color="#0f766e" />
+          <MaterialIcons name="receipt" size={32} color="#0f766e" />
           <Text style={styles.title}>Add Expenses</Text>
           <Text style={styles.subtitle}>Track what everyone spent</Text>
         </View>
@@ -138,7 +137,7 @@ export default function AddExpensesScreen() {
               onPress={() => setShowSharedByModal(true)}
             >
               <Text style={[styles.selectorText, selectedSharedBy.length === 0 && styles.placeholder]}>
-                {selectedSharedBy.length === 0 
+                {selectedSharedBy.length === 0
                   ? 'Select who shares this expense'
                   : selectedSharedBy.length === people.length
                   ? 'Everyone'
@@ -153,7 +152,7 @@ export default function AddExpensesScreen() {
             onPress={addExpense}
             disabled={!expenseName.trim() || !expenseAmount || !selectedPayer || selectedSharedBy.length === 0}
           >
-            <Plus size={20} color="#ffffff" />
+            <Entypo name="plus" size={20} color="#ffffff" />
             <Text style={styles.addExpenseButtonText}>Add Expense</Text>
           </TouchableOpacity>
         </View>
@@ -169,7 +168,7 @@ export default function AddExpensesScreen() {
                     ${expense.amount.toFixed(2)} • Paid by {getPersonName(expense.paidBy)}
                   </Text>
                   <Text style={styles.expenseShared}>
-                    Shared by {expense.sharedBy.length === people.length ? 'everyone' : 
+                    Shared by {expense.sharedBy.length === people.length ? 'everyone' :
                     expense.sharedBy.map(id => getPersonName(id)).join(', ')}
                   </Text>
                 </View>
@@ -177,11 +176,11 @@ export default function AddExpensesScreen() {
                   style={styles.removeExpenseButton}
                   onPress={() => removeExpense(expense.id)}
                 >
-                  <X size={18} color="#ef4444" />
+                  <Feather name="x" size={18} color="#ef4444" />
                 </TouchableOpacity>
               </View>
             ))}
-            
+
             <View style={styles.totalContainer}>
               <Text style={styles.totalText}>Total: ${totalExpenses.toFixed(2)}</Text>
             </View>
@@ -198,11 +197,11 @@ export default function AddExpensesScreen() {
           <Text style={[styles.continueButtonText, expenses.length === 0 && styles.continueButtonTextDisabled]}>
             View Results
           </Text>
-          <ArrowRight size={20} color={expenses.length > 0 ? '#ffffff' : '#94a3b8'} />
+          <MaterialIcons name="arrow-forward" size={20} color={expenses.length > 0 ? '#ffffff' : '#94a3b8'} />
         </TouchableOpacity>
       </View>
 
-      {/* Payer Selection Modal */}
+      {/* Payer Modal */}
       <Modal visible={showPayerModal} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -217,7 +216,7 @@ export default function AddExpensesScreen() {
                 }}
               >
                 <Text style={styles.modalOptionText}>{person.name}</Text>
-                {selectedPayer === person.id && <Check size={20} color="#0f766e" />}
+                {selectedPayer === person.id && <MaterialIcons name="check" size={20} color="#0f766e" />}
               </TouchableOpacity>
             ))}
             <TouchableOpacity
@@ -230,7 +229,7 @@ export default function AddExpensesScreen() {
         </View>
       </Modal>
 
-      {/* Shared By Selection Modal */}
+      {/* Shared By Modal */}
       <Modal visible={showSharedByModal} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -250,7 +249,7 @@ export default function AddExpensesScreen() {
                 onPress={() => toggleSharedBy(person.id)}
               >
                 <Text style={styles.modalOptionText}>{person.name}</Text>
-                {selectedSharedBy.includes(person.id) && <Check size={20} color="#0f766e" />}
+                {selectedSharedBy.includes(person.id) && <MaterialIcons name="check" size={20} color="#0f766e" />}
               </TouchableOpacity>
             ))}
             <TouchableOpacity
@@ -294,16 +293,15 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingHorizontal: 24,
-    marginBottom: 32,
+    gap: 20,
   },
   inputGroup: {
-    marginBottom: 20,
+    gap: 8,
   },
   label: {
     fontSize: 16,
     fontWeight: '600',
     color: '#1e293b',
-    marginBottom: 8,
   },
   input: {
     backgroundColor: '#ffffff',
@@ -332,12 +330,11 @@ const styles = StyleSheet.create({
   addExpenseButton: {
     backgroundColor: '#0f766e',
     paddingVertical: 16,
-    paddingHorizontal: 24,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8,
+    gap: 8,
   },
   addExpenseButtonDisabled: {
     backgroundColor: '#e2e8f0',
@@ -346,11 +343,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#ffffff',
-    marginLeft: 8,
   },
   expensesList: {
     paddingHorizontal: 24,
-    marginBottom: 32,
+    gap: 12,
   },
   expensesTitle: {
     fontSize: 20,
@@ -360,12 +356,10 @@ const styles = StyleSheet.create({
   },
   expenseItem: {
     backgroundColor: '#ffffff',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    padding: 16,
     borderRadius: 12,
-    marginBottom: 12,
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: '#e2e8f0',
@@ -382,28 +376,23 @@ const styles = StyleSheet.create({
   expenseDetails: {
     fontSize: 14,
     color: '#64748b',
-    marginBottom: 2,
+    marginBottom: 4,
   },
   expenseShared: {
-    fontSize: 12,
-    color: '#94a3b8',
+    fontSize: 14,
+    color: '#475569',
   },
   removeExpenseButton: {
     padding: 4,
-    marginLeft: 12,
   },
   totalContainer: {
-    backgroundColor: '#0f766e',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
     alignItems: 'center',
-    marginTop: 8,
+    paddingVertical: 24,
   },
   totalText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#0f766e',
   },
   footer: {
     paddingHorizontal: 24,
@@ -415,7 +404,6 @@ const styles = StyleSheet.create({
   continueButton: {
     backgroundColor: '#0f766e',
     paddingVertical: 16,
-    paddingHorizontal: 24,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
@@ -440,42 +428,35 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: '#ffffff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 40,
-    maxHeight: '70%',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 24,
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1e293b',
-    marginBottom: 20,
-    textAlign: 'center',
+    marginBottom: 16,
   },
   modalOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingVertical: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9',
+    borderBottomColor: '#e2e8f0',
   },
   modalOptionText: {
     fontSize: 16,
     color: '#1e293b',
   },
   modalCloseButton: {
-    backgroundColor: '#f1f5f9',
     paddingVertical: 16,
-    borderRadius: 12,
     alignItems: 'center',
-    marginTop: 20,
   },
   modalCloseButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#64748b',
+    color: '#0f766e',
   },
 });
